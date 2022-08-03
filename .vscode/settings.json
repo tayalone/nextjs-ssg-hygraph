@@ -25,14 +25,5 @@
   "editor.suggestSelection": "first",
   "editor.snippetSuggestions": "top",
   "editor.scrollBeyondLastLine": false,
-  "javascript.preferences.importModuleSpecifier": "non-relative",
-  "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
-  "javascript.inlayHints.parameterTypes.enabled": true,
-  "js/ts.implicitProjectConfig.checkJs": true,
-  "js/ts.implicitProjectConfig.strictNullChecks": true,
-  "js/ts.implicitProjectConfig.experimentalDecorators": true,
-  "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
-  "typescript.inlayHints.variableTypes.enabled": true,
-  "typescript.inlayHints.enumMemberValues.enabled": true,
-  "typescript.inlayHints.parameterNames.enabled": "literals"
+  "javascript.preferences.importModuleSpecifier": "non-relative"
 }
