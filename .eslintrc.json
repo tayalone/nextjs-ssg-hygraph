@@ -3,16 +3,19 @@
     "eslint:recommended",
     "next",
     "airbnb",
+    "airbnb/hooks",
     "airbnb-typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": "warn",
     "camelcase": "off",
