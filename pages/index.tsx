@@ -1,5 +1,7 @@
 import React from 'react'
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
+
 // import Head from 'next/head'
 // import Image from 'next/image'
 
@@ -14,12 +16,28 @@ interface IndexProps {
 }
 
 const Home: NextPage<IndexProps> = ({ latestBlogs }: IndexProps) => {
+  const router = useRouter()
+
+  const handlerClinkBlog = (slug: string) => {
+    router.push(`blog/${encodeURIComponent(slug)}`)
+  }
+
   return (
     <div className={styles.container}>
       <ul>
         {latestBlogs.map((lb) => {
           const { id, title, slug }: BlogInterface = lb
-          return <li key={id}> {`${title} - ${slug}`}</li>
+          return (
+            <li
+              onClick={() => {
+                return handlerClinkBlog(slug)
+              }}
+              aria-hidden='true'
+              key={id}
+            >
+              {`${title}`}
+            </li>
+          )
         })}
       </ul>
       {/* <Head>
