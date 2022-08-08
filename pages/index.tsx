@@ -25,15 +25,6 @@ const Home: NextPage<IndexProps> = ({ latestBlogs }: IndexProps) => {
   }
 
   return (
-    // <Box
-    //   w='100%'
-    //   h='100vh'
-    //   bgGradient={[
-    //     'linear(to-tr, teal.300, yellow.400)',
-    //     'linear(to-t, blue.200, teal.500)',
-    //     'linear(to-b, orange.100, purple.300)',
-    //   ]}
-    // >
     <>
       <Heading
         bgGradient='linear(to-l, #7928CA, #FF0080)'
@@ -46,11 +37,28 @@ const Home: NextPage<IndexProps> = ({ latestBlogs }: IndexProps) => {
         Latest Blogs
       </Heading>
 
-      <Wrap p={2}>
+      <Wrap spacing={4} p={4}>
         {latestBlogs.map((lb) => {
+          const {
+            title,
+            subtitle,
+            slug,
+            heroBanner,
+            updatedAt,
+          }: BlogInterface = lb
           return (
-            <WrapItem>
-              <BlogCard key={lb.id} />{' '}
+            <WrapItem
+              key={lb.id}
+              onClick={() => {
+                return handlerClinkBlog(slug)
+              }}
+            >
+              <BlogCard
+                title={title}
+                subtitle={subtitle}
+                imageUrl={heroBanner.url}
+                updatedAt={updatedAt}
+              />{' '}
             </WrapItem>
           )
         })}
@@ -71,6 +79,7 @@ export async function getStaticProps() {
             title
             subtitle
             slug
+            updatedAt
             heroBanner {
               url
               width
