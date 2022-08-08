@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 // import Head from 'next/head'
 // import Image from 'next/image'
 
-import apolloClinet from '@utils/apollo-client'
+import { initializeApollo } from '@utils/apollo-client'
 
 import { gql } from '@apollo/client'
 import { Blog as BlogInterface } from '@interfaces/Blog'
@@ -15,9 +15,10 @@ import BlogCard from '@components/Blog/Card'
 
 interface IndexProps {
   latestBlogs: BlogInterface[]
+  time: string
 }
 
-const Home: NextPage<IndexProps> = ({ latestBlogs }: IndexProps) => {
+const Home: NextPage<IndexProps> = ({ latestBlogs, time }: IndexProps) => {
   const router = useRouter()
 
   const handlerClinkBlog = (slug: string) => {
@@ -34,7 +35,7 @@ const Home: NextPage<IndexProps> = ({ latestBlogs }: IndexProps) => {
         as='h1'
         p={2}
       >
-        Latest Blogs
+        Latest Blogs - {time}
       </Heading>
 
       <Wrap spacing={4} p={4}>
@@ -71,7 +72,8 @@ const Home: NextPage<IndexProps> = ({ latestBlogs }: IndexProps) => {
 
 export async function getStaticProps() {
   try {
-    const { data } = await apolloClinet.query({
+    const apolloClient = initializeApollo()
+    const { data } = await apolloClient.query({
       query: gql`
         query MyQuery {
           myBlogs(orderBy: publishedAt_DESC, first: 10) {
@@ -89,15 +91,22 @@ export async function getStaticProps() {
         }
       `,
     })
+    console.info('data.myBlogs', data.myBlogs)
+    const time = new Date().toISOString()
+    console.info('time', time)
     return {
       props: {
         latestBlogs: data.myBlogs,
+        time,
       },
+      // revalidate: 10,
     }
   } catch (err: any) {
+    console.info('err', err.message)
     return {
       props: {
         latestBlogs: [],
+        time: new Date().toISOString(),
       },
     }
   }

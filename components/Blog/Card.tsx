@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, memo } from 'react'
 import Image from 'next/image'
 import {
   Box,
@@ -33,7 +33,7 @@ const Card = ({ title, subtitle, imageUrl, updatedAt }: Props) => {
       overflow='hidden'
     >
       <Box h='210px' bg='gray.100' mt={-6} mx={-6} mb={6} pos='relative'>
-        <Image src={imageUrl} layout='fill' />
+        <Image quality={50} src={imageUrl} layout='fill' />
       </Box>
       <Stack>
         <Text
@@ -61,4 +61,4 @@ const Card = ({ title, subtitle, imageUrl, updatedAt }: Props) => {
   )
 }
 
-export default Card
+export default memo(Card)
