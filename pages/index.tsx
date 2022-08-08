@@ -9,6 +9,7 @@ import apolloClinet from '@utils/apollo-client'
 
 import { gql } from '@apollo/client'
 import { Blog as BlogInterface } from '@interfaces/Blog'
+import { Box, Text } from '@chakra-ui/react'
 import styles from '../styles/Home.module.css'
 
 interface IndexProps {
@@ -22,7 +23,26 @@ const Home: NextPage<IndexProps> = ({ latestBlogs }: IndexProps) => {
     router.push(`blog/${encodeURIComponent(slug)}`)
   }
 
-  return <h1>Index page</h1>
+  return (
+    <Box
+      w='100%'
+      h='100vh'
+      bgGradient={[
+        'linear(to-tr, teal.300, yellow.400)',
+        'linear(to-t, blue.200, teal.500)',
+        'linear(to-b, orange.100, purple.300)',
+      ]}
+    >
+      <Text
+        bgGradient='linear(to-l, #7928CA, #FF0080)'
+        bgClip='text'
+        fontSize='6xl'
+        fontWeight='extrabold'
+      >
+        Welcome to Chakra UI
+      </Text>
+    </Box>
+  )
 }
 
 export async function getStaticProps() {
