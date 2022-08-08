@@ -9,8 +9,9 @@ import apolloClinet from '@utils/apollo-client'
 
 import { gql } from '@apollo/client'
 import { Blog as BlogInterface } from '@interfaces/Blog'
-import { Box, Text } from '@chakra-ui/react'
-import styles from '../styles/Home.module.css'
+import { Heading, Wrap, WrapItem } from '@chakra-ui/react'
+
+import BlogCard from '@components/Blog/Card'
 
 interface IndexProps {
   latestBlogs: BlogInterface[]
@@ -24,24 +25,39 @@ const Home: NextPage<IndexProps> = ({ latestBlogs }: IndexProps) => {
   }
 
   return (
-    <Box
-      w='100%'
-      h='100vh'
-      bgGradient={[
-        'linear(to-tr, teal.300, yellow.400)',
-        'linear(to-t, blue.200, teal.500)',
-        'linear(to-b, orange.100, purple.300)',
-      ]}
-    >
-      <Text
+    // <Box
+    //   w='100%'
+    //   h='100vh'
+    //   bgGradient={[
+    //     'linear(to-tr, teal.300, yellow.400)',
+    //     'linear(to-t, blue.200, teal.500)',
+    //     'linear(to-b, orange.100, purple.300)',
+    //   ]}
+    // >
+    <>
+      <Heading
         bgGradient='linear(to-l, #7928CA, #FF0080)'
         bgClip='text'
-        fontSize='6xl'
+        fontSize='4xl'
         fontWeight='extrabold'
+        as='h1'
+        p={2}
       >
-        Welcome to Chakra UI
-      </Text>
-    </Box>
+        Latest Blogs
+      </Heading>
+
+      <Wrap p={2}>
+        {latestBlogs.map((lb) => {
+          return (
+            <WrapItem>
+              <BlogCard key={lb.id} />{' '}
+            </WrapItem>
+          )
+        })}
+      </Wrap>
+    </>
+
+    // </Box>
   )
 }
 

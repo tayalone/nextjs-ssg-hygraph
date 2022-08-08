@@ -1,11 +1,14 @@
 import React from 'react'
 import type { AppProps, NextWebVitalsMetric } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
+import CommonLayout from '@components/Layout/Common'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />{' '}
+      <CommonLayout>
+        <Component {...pageProps} />{' '}
+      </CommonLayout>
     </ChakraProvider>
   )
 }
