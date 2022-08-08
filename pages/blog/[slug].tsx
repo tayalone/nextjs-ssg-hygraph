@@ -19,8 +19,9 @@ export function getStaticPaths() {
   return {
     paths: [
       { params: { slug: 'blog-1' } }, // See the "paths" section below
+      { params: { slug: 'blog-2' } }, // See the "paths" section below
     ],
-    fallback: false,
+    fallback: true,
   }
 }
 
