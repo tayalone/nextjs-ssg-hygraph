@@ -1,7 +1,7 @@
 import React from 'react'
 import { Blog as BlogInterface } from '@interfaces/Blog'
 import { NextPage } from 'next'
-import apolloClient from '@utils/apollo-client'
+import { initializeApollo } from '@utils/apollo-client'
 import { gql } from '@apollo/client'
 
 export interface IAppProps {
@@ -27,7 +27,7 @@ export function getStaticPaths() {
 
 export async function getStaticProps({ params }: any) {
   const { slug } = params
-
+  const apolloClient = initializeApollo()
   const { data } = await apolloClient.query({
     query: gql`
       query MyQuery($slug: String) {
