@@ -16,9 +16,9 @@ const revalidateIndexPage = async (
   const { hygraphSecret: secret }: { hygraphSecret: string } =
     serverRuntimeConfig
 
-  console.info('body', body)
-  console.info('headers', headers)
-  console.info('secret', secret)
+  // console.info('body', body)
+  // console.info('headers', headers)
+  // console.info('secret', secret)
 
   const isValid = verifyWebhookSignature({
     body,
