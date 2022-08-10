@@ -10,7 +10,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['images.unsplash.com', 'media.graphassets.com'],
+    domains: ['media.graphassets.com'],
   },
   experimental: {
     // Defaults to 50MB
