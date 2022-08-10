@@ -27,7 +27,7 @@ const revalidateIndexPage = async (
   })
 
   if (isValid) {
-    await res.revalidate('/path-to-revalidate')
+    await res.revalidate('/')
     return res.json({ revalidated: true })
   }
 
