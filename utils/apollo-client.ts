@@ -1,15 +1,11 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
-
-// const apolloClient = new ApolloClient({
-//   uri: 'https://api-ap-northeast-1.hygraph.com/v2/cl6d7s88w00nu01ueebp02myw/master',
-//   cache: new InMemoryCache(),
-// })
-
-// export default apolloClient
+import getConfig from 'next/config'
 
 export const initializeApollo = () => {
+  const { serverRuntimeConfig } = getConfig()
+  const { graphQlUri } = serverRuntimeConfig
   return new ApolloClient({
-    uri: 'https://api-ap-northeast-1.hygraph.com/v2/cl6d7s88w00nu01ueebp02myw/master',
+    uri: graphQlUri,
     cache: new InMemoryCache(),
   })
 }

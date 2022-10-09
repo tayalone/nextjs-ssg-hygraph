@@ -15,10 +15,9 @@ import BlogCard from '@components/Blog/Card'
 
 interface IndexProps {
   latestBlogs: BlogInterface[]
-  time: string
 }
 
-const Home: NextPage<IndexProps> = ({ latestBlogs, time }: IndexProps) => {
+const Home: NextPage<IndexProps> = ({ latestBlogs }: IndexProps) => {
   const router = useRouter()
 
   const handlerClinkBlog = (slug: string) => {
@@ -35,7 +34,7 @@ const Home: NextPage<IndexProps> = ({ latestBlogs, time }: IndexProps) => {
         as='h1'
         p={2}
       >
-        Latest Blogs - {time}
+        Latest Blogs
       </Heading>
 
       <Wrap spacing={4} p={4}>
@@ -91,15 +90,11 @@ export async function getStaticProps() {
         }
       `,
     })
-    console.info('data.myBlogs', data.myBlogs)
-    const time = new Date().toISOString()
-    console.info('time', time)
+
     return {
       props: {
         latestBlogs: data.myBlogs,
-        time,
       },
-      // revalidate: 10,
     }
   } catch (err: any) {
     console.info('err', err.message)

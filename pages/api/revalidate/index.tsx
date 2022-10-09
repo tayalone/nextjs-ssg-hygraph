@@ -1,19 +1,45 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import getConfig from 'next/config'
 
-export default async function handler(
+import { verifyWebhookSignature } from '@utils/graphcms'
+
+// import { verifyWebhookSignature } from '@graphcms/utils'
+
+const { serverRuntimeConfig } = getConfig()
+
+const revalidateIndexPage = async (
   req: NextApiRequest,
   res: NextApiResponse,
-) {
-  // Check for secret to confirm this is a valid request
+) => {
+  const { body = null, headers } = req
 
-  try {
-    // this should be the actual path not a rewritten path
-    // e.g. for "/blog/[slug]" this should be "/blog/post-1"
+  const { hygraphSecret: secret }: { hygraphSecret: string } =
+    serverRuntimeConfig
+
+  const isValid = verifyWebhookSignature({
+    body,
+    headers,
+    secret,
+  })
+
+  if (isValid) {
     await res.revalidate('/')
     return res.json({ revalidated: true })
-  } catch (err) {
-    // If there was an error, Next.js will continue
-    // to show the last successfully generated page
-    return res.status(500).send('Error revalidating')
+  }
+
+  return res.status(401).json({ message: 'Invalid token' })
+}
+
+const handler = (req: NextApiRequest, res: NextApiResponse) => {
+  const { method } = req
+
+  switch (method) {
+    case 'POST':
+      return revalidateIndexPage(req, res)
+    default:
+      res.setHeader('Allow', ['POST'])
+      return res.status(405).end(`Method ${method} Not Allowed`)
   }
 }
+
+export default handler
